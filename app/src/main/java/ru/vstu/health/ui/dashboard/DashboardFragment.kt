@@ -1,6 +1,7 @@
 package ru.vstu.health.ui.dashboard
 
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import ru.vstu.health.DataPoint
+import ru.vstu.health.GraphView
 import ru.vstu.health.databinding.FragmentDashboardBinding
 import ru.vstu.health.entities.ActivityMeasurements
 import java.time.LocalDateTime
+import java.util.Random
 
 class DashboardFragment : Fragment() {
 
@@ -45,7 +49,17 @@ class DashboardFragment : Fragment() {
             textView.text = Json.encodeToString(activityMeasurements)
         }
 
+        val graphView: GraphView = binding.graphView
+        graphView.setData(generateRandomDataPoints())
+
         return root
+    }
+
+    private fun generateRandomDataPoints(): List<DataPoint> {
+        val random = Random()
+        return (0..20).map {
+            DataPoint(it, random.nextInt(50) + 1)
+        }
     }
 
     override fun onDestroyView() {
