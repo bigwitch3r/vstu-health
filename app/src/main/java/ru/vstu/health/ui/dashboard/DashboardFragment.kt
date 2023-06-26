@@ -22,6 +22,8 @@ class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
 
+    private lateinit var graph_view: GraphView
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -37,17 +39,10 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
+        /*val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
-
-        val activityMeasurements = ActivityMeasurements(
-            kotlinx.datetime.LocalDateTime(2023, 6, 5, 0, 0),
-            10, 20, 30)
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = Json.encodeToString(activityMeasurements)
-        }
+        }*/
 
         val graphView: GraphView = binding.graphView
         graphView.setData(generateRandomDataPoints())
